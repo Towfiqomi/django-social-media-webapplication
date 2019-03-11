@@ -1,0 +1,33 @@
+{% extends "home/base2.html" %}
+{% block content %}
+
+    {% if user.is_superuser %}
+        <div class="content-section">
+            <h5 class="admin-notification">Notification!!!<br><br>You are logged in as an admin user! <br>Try accessing the admin panel!</h5>
+        </div>
+    {% else %}
+        <div class="table-responsive-sm">
+            <p class="h6">Find Friends</p>
+            <table class="table">
+                {% for user in users %}
+                    {% if user not in friends and user.is_superuser == False %}
+                        {#                <div class="media">#}
+                        <tr>
+                            <td class="sf1">
+                                <img class="avatar_2" src="{{ user.profile.image.url }}">
+                            </td>
+                            <td class="sf2">
+                                <a href="{% url "view_profile2" pk=user.pk %}" class="text-secondary"><button type="button" class="btn btn-link">{{ user.first_name }} {{ user.last_name }}</button></a>
+                            </td>
+                            <td class="sf3">
+                                <a href="{% url 'friends_matters' operation='req' pk=user.pk %}" class="text-secondary"><button type="button" class="btn btn-info">Send Request</button></a>
+                            </td>
+                            {#                </div>#}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}
+
+{% endblock %}

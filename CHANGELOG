@@ -1,0 +1,21 @@
+New Added Features
++ Discussion Creation
++ Multiple discussion creation
++ Discussion participation among users using Ajax
++ Real time discussion comment update using Ajax
++ Zone based time stamp added in discussion creation
++ Zone based time stamp added in discussion messages 
++ user can delete their discussion message
++ Timeline page has statuses from the user and his friends
++ User can delete their accounts
++ View profile page shows the users own discussion and the his participated discussions 
+
+
+Modified Features
+
+- Friends, Friendship requests, Find friend pages UI modified.
+- CSS fixes in sign up and login page
+- Status update now in Timeline page
+- Status directly updates in newsfeed and timeline
+- UI modified and CSS fixes in almost all the pages.
+- Except Discussion details page, all the other pages are responsive

@@ -1,0 +1,10 @@
+{% extends "home/base2.html" %}
+{% block content %}
+    <div class="content-section">
+        <h5 class="text-secondary">You don't have any friends yet!</h5>
+{#        {% for user in users %}#}
+{#            <a href="{% url "view_profile" pk=user.pk %}"><li class="list-group-item list-group-item-light">{{ user.username }}</li></a>#}
+{#            <a href="{% url "send_request" username=user.get_username pk2=user.pk %}"><button type="button" class="btn btn-default">Send Request</button></a>#}
+{#        {% endfor %}#}
+    </div>
+{% endblock content %}

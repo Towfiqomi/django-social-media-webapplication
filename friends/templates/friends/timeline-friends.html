@@ -1,0 +1,25 @@
+{% extends "home/base2.html" %}
+{% block content %}
+    <div class="table-responsive-sm">
+        <p class="h6">Friends</p>
+        <table class="table">
+            {% for p in viewfriends %}
+                {#                <div class="media">#}
+                <tr>
+                    <td class="tf1">
+                        <img class="avatar_2" src="{{ p.profile.image.url }}">
+                    </td>
+                    <td class="tf2">
+                        <a href="{% url "view_profile_full" pk=p.pk %}"><button type="button" class="btn btn-link">{{ p.first_name }} {{ p.last_name }}</button></a>
+                    </td>
+                    <td class="tf3">
+                        <a href="{% url 'friends_matters' operation='remove' pk=p.pk %}"><button type="button" class="btn btn-danger">Remove Friend [X]</button></a>
+                        {#                </div>#}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}
+

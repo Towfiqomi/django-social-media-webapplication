@@ -1,0 +1,13 @@
+{% extends "home/base.html" %}
+{% load static %}
+{% block content %}
+
+    <h1 class="middle-title"> Friend Finder </h1>
+
+    <div class="home-buttons">
+    <button type="button" class="btn btn-primary btn-lg button-resize" onclick="location.href='{% url 'login' %}'">Sign in</button>
+    <button type="button" class="btn btn-secondary btn-lg button-resize" onclick="location.href='{% url 'register' %}'">Sign up</button>
+    </div>
+
+
+{% endblock %}

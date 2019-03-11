@@ -1,0 +1,9 @@
+{% extends "home/base2.html" %}
+{% block content %}
+    <div class="content-section">
+        <p>Are you sure you want to delete your account?</p>
+        <a class='delete_link' href="{% url 'delete_account2' %}">Yes</a>
+        <a class='delete_link2' href="{% url 'home2' %}">No</a>
+    </div>
+{% endblock content %}
+

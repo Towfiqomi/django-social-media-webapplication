@@ -1,0 +1,81 @@
+{% extends "home/base2.html" %}
+{% block content %}
+    {% load tz %}
+    <div class="central_div">
+        <div class="content-section">
+            <p>Profile Details of {{ user.first_name}} {{ user.last_name }}</p>
+            <div class="media">
+                <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+                <div class="media-body">
+                    <h2 class="account-heading">{{ user.first_name}} {{ user.last_name }}</h2>
+                    <p class="text-secondary">@{{ user.username }}</p>
+                    <p class="text-secondary">{{ user.profile.address }}</p>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'profile' %}"> <button type="button" class="btn btn-success">
+                            Edit Profile
+                        </button>
+                        </a>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <br>
+            <p class="h4">My Statuses</p>
+            <hr align="left" width="100%">
+            <br>
+            {% for post in posts %}
+                <article class="media content-section">
+                    <img class="rounded-circle account-img" src="{{ post.user.profile.image.url }}">
+                    <div class="media-body">
+                        <div class="article-metadata">
+                            <a class="mr-2" href="{% url "view_profile_full" pk=post.user.pk %}">{{ post.user.get_full_name }}</a>
+                            {% timezone "Europe/Helsinki" %}
+                                <small class="text-muted">{{ post.date_posted }}</small>
+                            {% endtimezone %}
+                        </div>
+                        <p class="article-content">{{ post.content }}</p>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+
+
+        <div>
+            <br>
+            <p class="h4">My Discussions</p>
+            <hr align="left" width="100%">
+            <br>
+            {% for discussion in discussions %}
+                <div class="content-section">
+
+                <a class="h1-title title-color" href="{% url 'discussion_details' discussion.pk %}">{{ discussion.discussion_title }}</a>
+                {% timezone "Europe/Helsinki" %}
+                    <p>{{ discussion.discussion_time_stamp }}</p>
+                {% endtimezone %}
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <div>
+            <br>
+            <p class="h4">Discussions participated</p>
+            <hr align="left" width="100%">
+            <br>
+            {% for mesg in all_messages %}
+                {% if mesg.message_sender.username == user.username and mesg.message_sender.username != mesg.discussion_id.discussion_created.username %}
+                    <div class="content-section">
+                    <a class="h1-title title-color" href="{% url 'discussion_details' mesg.discussion_id.pk %}">{{ mesg.discussion_id.discussion_title }}</a>
+                    {% timezone "Europe/Helsinki" %}
+                        <p>{{ mesg.discussion_id.discussion_time_stamp }}</p>
+                    {% endtimezone %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
+

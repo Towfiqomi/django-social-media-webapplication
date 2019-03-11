@@ -1,0 +1,100 @@
+{% extends "home/discussion-base.html" %}
+
+
+{% block content %}
+
+
+    {% load tz %}
+    <div class="card text-center">
+        <h1 class="card-header">Discussions</h1>
+        <div class="card-body">
+            <a href=""> Discussion Title:  {{ discussion.discussion_title }}</a>
+            {% timezone "Europe/Helsinki" %}
+                <p>Discussion created By: {{ discussion.discussion_created.get_full_name }} on {{ discussion.discussion_time_stamp }}</p>
+            {% endtimezone %}
+        </div>
+    </div>
+
+    <div class="width-discussion">
+        <h3 class=" text-center card-header">Current Discussion:  {{ discussion.discussion_title }}</h3>
+        <div class="messaging">
+            <div class="inbox_msg">
+                <div class="inbox_people">
+                    <div class="headind_srch">
+                        <div class="recent_heading">
+                            <h4>Discussion</h4>
+                        </div>
+                    </div>
+                    <div class="inbox_chat">
+                        <div class="chat_list active_chat">
+                            <div class="chat_people">
+                                <img class="rounded-circle account-img" src="{{ discussion.discussion_created.profile.image.url }}">
+                                <div class="chat_ib">
+                                    {% timezone "Europe/Helsinki" %}
+                                        {% if discussion.discussion_created in friends or discussion.discussion_created.id == user.id %}
+                                            <h5><a href="{% url 'view_profile_full' pk=discussion.discussion_created.pk %}">{{ discussion.discussion_created.get_full_name }}</a><span class="chat_date">{{ discussion.discussion_time_stamp }}</span></h5>
+                                        {% else %}
+                                            <h5><a href="{% url 'view_profile2' pk=discussion.discussion_created.pk %}">{{ discussion.discussion_created.get_full_name }}<span class="chat_date">{{ discussion.discussion_time_stamp }}</span></h5>
+                                        {% endif %}
+                                    {% endtimezone %}
+                                    <p>{{ discussion.discussion_title }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mesgs">
+                    {% for message in all_messages %}
+                        <div class="msg_history">
+                            <div class="incoming_msg">
+                                <div class="received_msg">
+                                    <div class="received_withd_msg">
+                                        <img src="{{ message.message_sender.profile.image.url }}" class="avatar">
+                                        {% if message.message_sender in friends or message.message_sender.id == user.id %}
+                                            <span><a href="{% url "view_profile_full" pk=message.message_sender.pk %}">{{ message.message_sender.get_full_name }}</a></span>
+                                        {% else %}
+                                            <span><a href="{% url "view_profile2" pk=message.message_sender.pk %}">{{ message.message_sender.get_full_name }}</a></span>
+                                        {% endif %}
+                                        <p>{{ message.message }}</p>
+
+                                        {% if message.message_sender.id == user.id or discussion.discussion_created.id == user.id %}
+                                            <button class="delete_message" data-message_id = "{{ message.id }}" data-discussion_id = "{{ message.discussion_id.id }}"><i class=" far fa-times-circle"  ></i></button>
+                                        {% else %}
+                                            <hr width="0%">
+                                        {% endif %}
+                                        {% timezone "Europe/Helsinki" %}
+                                            <span class="time_date">{{ message.message_time }}</span>
+                                        {% endtimezone %}
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    {% endfor %}
+
+
+                </div>
+            </div>
+        </div>
+        <div class="type_msg">
+            <div class="input_msg_write">
+                <input type="hidden" id="discussion_id" value="{{ discussion.id }}">
+                <input type="text" class="write_msg" id='message_text' placeholder="Type a message" />
+                <button class="msg_send_btn" id="message_send" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                <p class="msg_paragragh">Click the icon to send message!</p>
+                <div class="empty-space"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+{% endblock content %}

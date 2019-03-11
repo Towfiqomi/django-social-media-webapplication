@@ -1,0 +1,21 @@
+{% extends "home/base2.html" %}
+
+{% block content %}
+{% load tz %}
+    {% for post in posts %}
+        {% if post.user.username == user.get_username or post.user in friends %}
+            <article class="media content-section">
+                <img class="rounded-circle account-img" src="{{ post.user.profile.image.url }}">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="mr-2" href="{% url "view_profile_full" pk=post.user.pk %}">{{ post.user.get_full_name }}</a>
+                        {% timezone "Europe/Helsinki" %}
+                        <small class="text-muted">{{ post.date_posted }}</small>
+                        {% endtimezone %}
+                    </div>
+                    <p class="article-content">{{ post.content }}</p>
+                </div>
+            </article>
+        {% endif %}
+    {% endfor %}
+{% endblock content %}

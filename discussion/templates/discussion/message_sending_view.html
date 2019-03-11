@@ -1,0 +1,33 @@
+{% for message in messages %}
+
+    <div class="msg_history">
+        <div class="incoming_msg">
+            <div class="received_msg">
+                <div class="received_withd_msg">
+                    <img src="{{ message.message_sender.profile.image.url }}" class="avatar">
+                    {% if message.message_sender in friends or message.message_sender.id == user.id %}
+                        <span><a href="{% url "view_profile_full" pk=message.message_sender.pk %}">{{ message.message_sender.get_full_name }}</a></span>
+                    {% else %}
+                        <span><a href="{% url "view_profile2" pk=message.message_sender.pk %}">{{ message.message_sender.get_full_name }}</a></span>
+                    {% endif %}
+                    <p>{{ message.message }}</p>
+
+                    {% if message.message_sender.id == user.id or discussion.discussion_created.id == user.id %}
+                        <button class="delete_message" data-message_id = "{{ message.id }}" data-discussion_id = "{{ message.discussion_id.id }}"><i class=" far fa-times-circle"  ></i></button>
+                    {% else %}
+                        <hr width="0%">
+
+                    {% endif %}
+
+                    <span class="time_date">{{ message.message_time }}</span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+{% endfor %}

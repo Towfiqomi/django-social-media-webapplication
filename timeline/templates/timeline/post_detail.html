@@ -1,0 +1,14 @@
+{% extends "home/base2.html" %}
+{% block content %}
+  <article class="media content-section">
+    <img class="rounded-circle account-img" src="{{ profile.image.url }}">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="ml-2" href="#">{{ object.user }}</a>
+        <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+
+      </div>
+      <p class="article-content">{{ object.content }}</p>
+    </div>
+  </article>
+{% endblock content %}

@@ -1,0 +1,8 @@
+<div>
+    {% for p in notfriend %}
+        <a href="{% url 'friends_matters' operation='req' pk=p.pk %}" class="pull-right text-green">Request</a>
+        <h5><a href="{% url 'tfriends' %}" class="profile-link">{{ p.username }}</a></h5>
+        <p>Student at Harvard</p>
+    {% endfor %}
+</div>
+</div>

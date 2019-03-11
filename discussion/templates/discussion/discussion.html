@@ -1,0 +1,34 @@
+{% extends "home/base2.html" %}
+{% block content %}
+    {% load tz %}
+    <div class="card">
+        <h1 class="card-header">Create Discussions</h1>
+        <div class="card-body  text-center">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Create Discussion</button>
+        </form>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="card">
+        <h1 class="card-header">Discussions</h1>
+        {% for discussion in discussions %}
+            {% if discussion.discussion_created.username == user.get_username or discussion.discussion_created in friends %}
+        <div class="card-body">
+            <a class="title-style" href="{% url 'discussion_details' discussion.pk %}">{{ discussion.discussion_title }}</a>
+            {% timezone "Europe/Helsinki" %}
+                <p class="paragraph-style">Created By: <a href="{% url "view_profile_full" pk=discussion.discussion_created.pk %}">{{ discussion.discussion_created.get_full_name }}</a> on {{ discussion.discussion_time_stamp }}</p>
+            {% endtimezone %}
+
+        </div>
+                <hr align="left" width="100%">
+
+            {% endif %}
+        {% endfor %}
+    </div>
+
+{% endblock content %}
+

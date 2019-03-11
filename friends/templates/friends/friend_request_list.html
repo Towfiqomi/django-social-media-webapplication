@@ -1,0 +1,33 @@
+{% extends "home/base2.html" %}
+{% block content %}
+
+
+    <div class="table-responsive-sm">
+    <p class="h6">Friend Requests</p>
+        <table class="table">
+            {% for p in friend_req_list %}
+                {% if p not in friends %}
+{#                    <div class="media">#}
+                        <tr>
+                            <td class="fr1">
+                                <img class="avatar_2" src="{{ p.profile.image.url }}">
+                            </td>
+                            <td class="fr2">
+                                <a href="{% url "view_profile2" pk=p.pk %}" ><p class="title-user">{{ p.first_name }} {{ p.last_name }}</p></a>
+                            </td>
+                            <td align="center">
+                                <a href="{% url 'friends_matters' operation='add' pk=p.profile.user.pk %}" class="pull-right text-green"><button type="button" class="btn btn-success" style="width: 160px">Accept Request [+]</button></a>
+{#                            </td>#}
+{#                            <td>#}
+                                <a href="{% url 'friends_matters' operation='rej' pk=p.profile.user.pk %}" class="pull-right text-green"><button type="button" class="btn btn-danger" style="width: 160px">Reject Request [X]</button></a>
+                            </td>
+                        </tr>
+{#                    </div>#}
+
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}
+
